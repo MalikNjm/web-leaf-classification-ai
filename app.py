@@ -20,9 +20,9 @@ def predict_label(img_path):
     q_pred = model.predict(q)
     predicted_bit = q_pred * 10
     print(predicted_bit)
-    if(predicted_bit <= 1):
+    if(predicted_bit < 2):
         predicted_bit = 0
-    if(predicted_bit >= 1):
+    if(predicted_bit > 2):
         predicted_bit = 1
 
     return class_dict[predicted_bit]
