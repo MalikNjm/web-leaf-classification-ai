@@ -6,9 +6,9 @@ import os
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = './static/uploads/'
-# model = load_model('kemangi_blimbing_model_class.h5')
+model = load_model('kemangi_blimbing_model_class.h5')
 
-# class_dict = {0: 'Kemangi', 1: 'Belimbing'}
+class_dict = {0: 'Kemangi', 1: 'Belimbing'}
 
 # def predict_label(img_path):
 #     query = cv2.imread(img_path)
@@ -30,15 +30,15 @@ app.config['UPLOAD_FOLDER'] = './static/uploads/'
 @app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
-#     if request.method == 'POST':
-#         if request.files:
-#             image = request.files['image']
-#             img_path = os.path.join(app.config['UPLOAD_FOLDER'], image.filename)
-#             image.save(img_path)
-#             prediction = predict_label(img_path)
-#             return render_template('index.html', uploaded_image=image.filename, prediction=prediction)
+    if request.method == 'POST':
+        if request.files:
+            image = request.files['image']
+            img_path = os.path.join(app.config['UPLOAD_FOLDER'], image.filename)
+            image.save(img_path)
+            prediction = predict_label(img_path)
+            return render_template('index.html', uploaded_image=image.filename, prediction=prediction)
 
-#     return render_template('index.html')
+    return render_template('index.html')
 
 @app.route('/display/<filename>')
 def send_uploaded_image(filename=''):
